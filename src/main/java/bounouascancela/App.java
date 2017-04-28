@@ -8,6 +8,19 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+
+        try {
+            //TCP
+
+
+
+
+            //RMI
+//            String url = "rmi://localhost/PNSServer";
+//            PNSServer ps = (PNSServer) Naming.lookup(url);
+//            new Thread(new PNSServerImpl(ps)).start();
+        } catch (Exception e) {
+            System.err.println("Problem ...");
+        }
     }
 }
