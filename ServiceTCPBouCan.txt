@@ -1,0 +1,20 @@
+*******Fonctionalités choisies: 
+-Add idea
+add <idea_name>
+
+-List idea
+list
+
++Help
+help
+
++Quit
+quit
+
+*******Classes:
+-Idea (String name, Student creator , String desc, String[] techs)
+-Student(String name, String email)
+
+
+*******Serialisation
+Object
