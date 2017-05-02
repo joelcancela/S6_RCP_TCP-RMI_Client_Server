@@ -16,21 +16,18 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
-    private ObjectInputStream bIn;             // Buffer entree en mode "bytes"
-    private ObjectOutputStream bOut;            // Buffer sortie en mode "bytes"
-
-    public PNSServerImplTCP(int port) {
-        this.port = port;
-        start();
-    }
+    private ObjectInputStream bIn;
+    private ObjectOutputStream bOut;
 
     public PNSServerImplTCP() {
         this.port = 8080;
-        start();
     }
 
     public void run() {
-
+        System.out.println("SERVER");
+        while(true){
+            acceptConnection();
+        }
     }
 
     public boolean acceptConnection() {

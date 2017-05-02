@@ -5,5 +5,5 @@ package bounouascancela.protocol;
  *
  * @author Joël CANCELA VAZ
  */
-public interface PNSClient {
+public interface PNSClient extends Runnable {
 }
