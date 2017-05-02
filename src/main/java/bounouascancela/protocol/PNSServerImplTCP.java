@@ -1,9 +1,6 @@
 package bounouascancela.protocol;
 
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,27 +15,70 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
     private Socket socket;
     private ObjectInputStream bIn;
     private ObjectOutputStream bOut;
+    private boolean endOfCommunication = false;
 
     public PNSServerImplTCP() {
         this.port = 8080;
     }
 
     public void run() {
-        System.out.println("SERVER");
-        while(true){
-            acceptConnection();
+        while (!endOfCommunication) {
+            System.out.println("SERVER");
+            while (!acceptConnection()) {
+                parseMessages();
+                return;
+            }
         }
     }
 
-    public boolean acceptConnection() {
+    private void parseMessages() {
+        boolean stopParsing = false;
+//        Object msg = null;
+//        while (!stopParsing) {
+//            try {
+//                msg = bIn.readObject();
+//                if (msg != null) break;
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            stopParsing=true;
+//        }
+
+        BufferedReader inFromClient = null;
         try {
-            serverSocket = new ServerSocket(port);
-        } catch (Exception e) {
-            return false;
+            inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (!stopParsing) {
+            try {
+                String message = inFromClient.readLine();
+                if (message.equals("quit")) {
+                    stopParsing = true;
+                }
+                System.out.println(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public boolean acceptConnection() {
+
+        if (serverSocket == null) {
+            try {
+                serverSocket = new ServerSocket(port);
+            } catch (Exception e) {
+                return false;
+            }
         }
 
         try {
             socket = serverSocket.accept();
+            System.out.println("Connection accepted");
         } catch (Exception e) {
             return false;
         }
@@ -47,37 +87,39 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 
     private boolean initFlux(Socket s) {
 
-        // Controler l'existence de la socket support
-        //
-        if (s==null) return false;
 
-        // Creer le flux de sortie
-        //
-        OutputStream streamOut= null;
-        try{streamOut= s.getOutputStream();}
-        catch(Exception e){return false;}
+        if (s == null) return false;
+
+        OutputStream streamOut = null;
+        try {
+            streamOut = s.getOutputStream();
+        } catch (Exception e) {
+            return false;
+        }
         if (streamOut == null) return false;
 
-        // Creer le buffer de sortie
-        //
-        try{bOut= new ObjectOutputStream(streamOut);}
-        catch (Exception e) {return false;}
+
+        try {
+            bOut = new ObjectOutputStream(streamOut);
+        } catch (Exception e) {
+            return false;
+        }
         if (bOut == null) return false;
 
-        // Creer le flux d'entree
-        //
-        InputStream streamIn= null;
-        try{streamIn= s.getInputStream();}
-        catch(Exception e){return false;}
+
+        InputStream streamIn = null;
+        try {
+            streamIn = s.getInputStream();
+        } catch (Exception e) {
+            return false;
+        }
         if (streamIn == null) return false;
 
-        // Creer le buffer d'entree
-        //
-        // ATTENTION : le constructeur est bloquant jusqu'a reception
-        //             du premier objet (message)
-        //
-        try{bIn= new ObjectInputStream(streamIn);}
-        catch (Exception e) {return false;}
+        try {
+            bIn = new ObjectInputStream(streamIn);
+        } catch (Exception e) {
+            return false;
+        }
         if (bIn == null) return false;
 
         return true;
@@ -90,6 +132,7 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
             bOut.close();
             socket.close();
             serverSocket.close();
+            endOfCommunication = true;
         } catch (Exception e) {
         }
     }
