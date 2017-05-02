@@ -79,6 +79,7 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
         try {
             socket = serverSocket.accept();
             System.out.println("Connection accepted");
+            //TODO send command list
         } catch (Exception e) {
             return false;
         }
