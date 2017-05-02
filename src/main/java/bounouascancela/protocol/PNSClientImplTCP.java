@@ -16,18 +16,25 @@ import java.util.Scanner;
  * @author Nassim B.
  */
 public class PNSClientImplTCP extends Thread implements PNSClient {
-
-    Scanner ScanIn =  new Scanner(System.in);
+   Scanner ScanIn =  new Scanner(System.in);
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
     private ObjectInputStream bIn;             // Buffer entree en mode "bytes"
     private ObjectOutputStream bOut;            // Buffer sortie en mode "bytes"
 
+    PNSClientImplTCP(String ip, String port) {
+
+    }
+
+    PNSClientImplTCP() {
+
+    }
+
     public static void main(String[] args) {
         System.out.println("IN CLIENT");
         PNSClientImplTCP main = new PNSClientImplTCP();
-        while (true){
+        while (true) {
             System.out.printf("### >");
             String inputted = main.ScanIn.nextLine();
             System.out.println("You entered : " + inputted);
