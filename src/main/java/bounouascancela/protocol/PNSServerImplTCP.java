@@ -32,7 +32,6 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
     }
 
     private void parseMessages() {
-        boolean stopParsing = false;
 //        Object msg = null;
 //        while (!stopParsing) {
 //            try {
@@ -47,22 +46,16 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 //        }
 
         BufferedReader inFromClient = null;
+        String message;
         try {
             inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            while(!(message = inFromClient.readLine()).equals("quit")){
+                System.out.println(message);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while (!stopParsing) {
-            try {
-                String message = inFromClient.readLine();
-                if (message.equals("quit")) {
-                    stopParsing = true;
-                }
-                System.out.println(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
 
     }
 

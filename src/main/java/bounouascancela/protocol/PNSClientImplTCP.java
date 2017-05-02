@@ -40,7 +40,7 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
     }
 
     private void writeMessages() {
-        String message = scanner.nextLine();
+        String message;
         DataOutputStream outToServer = null;
         try {
             outToServer = new DataOutputStream(socket.getOutputStream());
@@ -49,8 +49,7 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
             e.printStackTrace();
         }
 
-        while(!message.equals("quit")){
-            message=scanner.nextLine();
+        while(!(message = scanner.nextLine()).equals("quit")){
             try {
                 System.out.println("WRITTEN "+message);
                 outToServer.writeBytes(message+ "\r\n");
