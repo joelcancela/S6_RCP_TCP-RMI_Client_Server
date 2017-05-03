@@ -86,9 +86,6 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
         while((message = scanner.nextLine()) != null){
             try {
                 parseMessages(message);
-                //System.out.println("WRITTEN "+message);
-                //outToServer.writeBytes(message+ "\r\n");
-
                 System.out.printf("###>");
             } catch (IOException e) {
                 e.printStackTrace();

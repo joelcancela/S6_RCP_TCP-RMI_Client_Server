@@ -24,70 +24,24 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
     }
 
     public void run() {
-//        while (!endOfCommunication) {
-//            System.out.println("SERVER");
-//            while (!acceptConnection()) {
-//                parseMessages();
-//                return;
-//            }
-//        }
-        /*try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Lancement du serveur");
-
-            while(true){
-                socket = serverSocket.accept();
-                if(socket!=null){
-                    System.out.println("Connexion avec : "+socket.getInetAddress());
-                    break;
-                }
-            }*/
-
         acceptConnection();
 
             while (true) {
 
                 String message = "";
 
-                // InputStream in = socketClient.getInputStream();
-                // OutputStream out = socketClient.getOutputStream();
-
-                //BufferedReader in = new BufferedReader(
-                //        new InputStreamReader(socket.getInputStream()));
-//                PrintStream out = new PrintStream(socketClient.getOutputStream());
-                //message = in.readLine();
-                //System.out.println(message);
                 System.out.println("BEFORE parseMessages");
                 parseMessages();
                 System.out.println("AFTER parseMessages");
                 break;
-                /*if(message.equals("quit")){
-                    closeConnection();
-                }*/
+
             }
-        /*} catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
     }
 
     private void parseMessages() {
-//        Object msg = null;
-//        while (!stopParsing) {
-//            try {
-//                msg = bIn.readObject();
-//                if (msg != null) break;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            stopParsing=true;
-//        }
-
-        //DataInputStream inFromClient = null;
         Object message;
         try {
-            //inFromClient = new DataInputStream(socket.getInputStream());
             while((message = bIn.readObject())!= null){
                 System.out.println("Received : " + message.getClass().toString());
                 if (message instanceof CommandQuit) {
@@ -96,9 +50,6 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
                     break;
                 }
             }
-//            while(!(message = ).equals("quit")){
-//                System.out.println(message);
-//            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
