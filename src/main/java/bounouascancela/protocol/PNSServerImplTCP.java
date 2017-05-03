@@ -1,5 +1,7 @@
 package bounouascancela.protocol;
 
+import bounouascancela.sharedobjects.CommandQuit;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -29,7 +31,7 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 //                return;
 //            }
 //        }
-        try {
+        /*try {
             serverSocket = new ServerSocket(port);
             System.out.println("Lancement du serveur");
 
@@ -39,8 +41,9 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
                     System.out.println("Connexion avec : "+socket.getInetAddress());
                     break;
                 }
-            }
+            }*/
 
+        acceptConnection();
 
             while (true) {
 
@@ -49,19 +52,22 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
                 // InputStream in = socketClient.getInputStream();
                 // OutputStream out = socketClient.getOutputStream();
 
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(socket.getInputStream()));
+                //BufferedReader in = new BufferedReader(
+                //        new InputStreamReader(socket.getInputStream()));
 //                PrintStream out = new PrintStream(socketClient.getOutputStream());
-                message = in.readLine();
-                System.out.println(message);
-
-                if(message.equals("quit")){
+                //message = in.readLine();
+                //System.out.println(message);
+                System.out.println("BEFORE parseMessages");
+                parseMessages();
+                System.out.println("AFTER parseMessages");
+                break;
+                /*if(message.equals("quit")){
                     closeConnection();
-                }
+                }*/
             }
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private void parseMessages() {
@@ -78,17 +84,22 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 //            stopParsing=true;
 //        }
 
-        DataInputStream inFromClient = null;
-        byte message;
+        //DataInputStream inFromClient = null;
+        Object message;
         try {
-            inFromClient = new DataInputStream(socket.getInputStream());
-            while((message = inFromClient.readByte())!=-1){
-                System.out.print(message);
+            //inFromClient = new DataInputStream(socket.getInputStream());
+            while((message = bIn.readObject())!= null){
+                System.out.println("Received : " + message.getClass().toString());
+                if (message instanceof CommandQuit) {
+                    System.out.println("SOCKET TO CLOSE");
+                    bIn.close();
+                    break;
+                }
             }
 //            while(!(message = ).equals("quit")){
 //                System.out.println(message);
 //            }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -117,7 +128,7 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 
     private boolean initFlux(Socket s) {
 
-
+        System.out.println("in initFlux");
         if (s == null) return false;
 
         OutputStream streamOut = null;
@@ -146,6 +157,7 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
         if (streamIn == null) return false;
 
         try {
+            System.out.println("bIn created");
             bIn = new ObjectInputStream(streamIn);
         } catch (Exception e) {
             return false;

@@ -1,4 +1,4 @@
-*******Fonctionalités choisies: 
+*******FonctionalitÃ©s choisies:
 -Add idea
 add <idea_name>
 

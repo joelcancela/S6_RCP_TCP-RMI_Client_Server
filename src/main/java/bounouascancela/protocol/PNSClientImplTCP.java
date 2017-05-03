@@ -40,7 +40,7 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
         }
     }
 
-    public void parseMessages(String message) {
+    public void parseMessages(String message) throws IOException {
         String[] tokens = message.split(" ");
         Command commandToSend;
         switch (tokens[0]) {
@@ -67,24 +67,28 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
                 break;
         }
         //SEND THE COMMAND
+        bOut.writeObject(commandToSend);
     }
 
     private void writeMessages() {
         String message;
         DataOutputStream outToServer = null;
         try {
-            outToServer = new DataOutputStream(socket.getOutputStream());
-            outToServer.flush();
+            //outToServer = new DataOutputStream(socket.getOutputStream());
+            bOut = new ObjectOutputStream(socket.getOutputStream());
+            //outToServer.flush();
+            bOut.flush();
             System.out.printf("###>");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        while(!(message = scanner.nextLine()).equals("quit")){
+        while((message = scanner.nextLine()) != null){
             try {
                 parseMessages(message);
                 //System.out.println("WRITTEN "+message);
-                outToServer.writeBytes(message+ "\r\n");
+                //outToServer.writeBytes(message+ "\r\n");
+
                 System.out.printf("###>");
             } catch (IOException e) {
                 e.printStackTrace();

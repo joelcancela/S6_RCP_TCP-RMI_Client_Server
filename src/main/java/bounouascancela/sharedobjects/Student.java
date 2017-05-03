@@ -1,11 +1,13 @@
 package bounouascancela.sharedobjects;
 
+import java.io.Serializable;
+
 /**
  * Class Student
  *
  * @author Joël CANCELA VAZ
  */
-public class Student {
+public class Student implements Serializable{
     private String name;
     private String email;
 
