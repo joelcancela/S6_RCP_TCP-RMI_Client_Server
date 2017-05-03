@@ -3,7 +3,7 @@ package bounouascancela.sharedobjects;
 /**
  * Created by Nassim B on 28/04/17.
  */
-public class CommandAdd {
+public class CommandAdd extends Command{
 
     private Idea idea;
 

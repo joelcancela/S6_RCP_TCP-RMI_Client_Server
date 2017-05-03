@@ -1,5 +1,6 @@
 package bounouascancela.protocol;
 
+import bounouascancela.sharedobjects.*;
 import com.sun.corba.se.impl.orbutil.ObjectUtility;
 
 import java.io.DataOutputStream;
@@ -39,6 +40,35 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
         }
     }
 
+    public void parseMessages(String message) {
+        String[] tokens = message.split(" ");
+        Command commandToSend;
+        switch (tokens[0]) {
+            case "add" :
+                String[] techs = {"C", "JAVA"};
+                commandToSend = new CommandAdd(new Idea("Doe", new Student("Creator", "Creator@mail.com"), "Desc", techs));
+                System.out.println("CREATE ADD COMMAND");
+                break ;
+            case "help" :
+                commandToSend = new CommandHelp();
+                System.out.println("CREATE HELP COMMAND");
+                break ;
+            case "list" :
+                commandToSend = new CommandList();
+                System.out.println("CREATE LIST COMMAND");
+                break ;
+            case "quit" :
+                commandToSend = new CommandQuit();
+                System.out.println("CREATE QUIT COMMAND");
+                break ;
+            default :
+                commandToSend = new CommandAbort();
+                System.out.println("COMMAND NOT RECOGNIZED");
+                break;
+        }
+        //SEND THE COMMAND
+    }
+
     private void writeMessages() {
         String message;
         DataOutputStream outToServer = null;
@@ -52,7 +82,8 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
 
         while(!(message = scanner.nextLine()).equals("quit")){
             try {
-                System.out.println("WRITTEN "+message);
+                parseMessages(message);
+                //System.out.println("WRITTEN "+message);
                 outToServer.writeBytes(message+ "\r\n");
                 System.out.printf("###>");
             } catch (IOException e) {
