@@ -45,6 +45,7 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
         try {
             outToServer = new DataOutputStream(socket.getOutputStream());
             outToServer.flush();
+            System.out.printf("###>");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,6 +54,7 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
             try {
                 System.out.println("WRITTEN "+message);
                 outToServer.writeBytes(message+ "\r\n");
+                System.out.printf("###>");
             } catch (IOException e) {
                 e.printStackTrace();
             }
