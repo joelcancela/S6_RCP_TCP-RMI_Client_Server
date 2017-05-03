@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Class x
+ * Class PNSServerImplTCP
  *
  * @author Joël CANCELA VAZ
  */
@@ -22,12 +22,45 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
     }
 
     public void run() {
-        while (!endOfCommunication) {
-            System.out.println("SERVER");
-            while (!acceptConnection()) {
-                parseMessages();
-                return;
+//        while (!endOfCommunication) {
+//            System.out.println("SERVER");
+//            while (!acceptConnection()) {
+//                parseMessages();
+//                return;
+//            }
+//        }
+        try {
+            serverSocket = new ServerSocket(port);
+            System.out.println("Lancement du serveur");
+
+            while(true){
+                socket = serverSocket.accept();
+                if(socket!=null){
+                    System.out.println("Connexion avec : "+socket.getInetAddress());
+                    break;
+                }
             }
+
+
+            while (true) {
+
+                String message = "";
+
+                // InputStream in = socketClient.getInputStream();
+                // OutputStream out = socketClient.getOutputStream();
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream()));
+//                PrintStream out = new PrintStream(socketClient.getOutputStream());
+                message = in.readLine();
+                System.out.println(message);
+
+                if(message.equals("quit")){
+                    closeConnection();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,13 +78,16 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 //            stopParsing=true;
 //        }
 
-        BufferedReader inFromClient = null;
-        String message;
+        DataInputStream inFromClient = null;
+        byte message;
         try {
-            inFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            while(!(message = inFromClient.readLine()).equals("quit")){
-                System.out.println(message);
+            inFromClient = new DataInputStream(socket.getInputStream());
+            while((message = inFromClient.readByte())!=-1){
+                System.out.print(message);
             }
+//            while(!(message = ).equals("quit")){
+//                System.out.println(message);
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,8 +107,8 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
 
         try {
             socket = serverSocket.accept();
+            socket.setTcpNoDelay(true);
             System.out.println("Connection accepted");
-            //TODO send command list
         } catch (Exception e) {
             return false;
         }
