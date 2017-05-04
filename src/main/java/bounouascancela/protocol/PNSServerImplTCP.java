@@ -5,13 +5,16 @@ import bounouascancela.sharedobjects.CommandQuit;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Class PNSServerImplTCP
  *
  * @author Joël CANCELA VAZ
  */
-public class PNSServerImplTCP extends Thread implements PNSServer {
+public class PNSServerImplTCP implements PNSServer {
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
@@ -19,11 +22,33 @@ public class PNSServerImplTCP extends Thread implements PNSServer {
     private ObjectOutputStream bOut;
     private boolean endOfCommunication = false;
 
+    public static void main(String[] args) {
+        new PNSServerImplTCP().startServer();
+    }
     public PNSServerImplTCP() {
         this.port = 8080;
     }
 
-    public void run() {
+    public void startServer() {
+        final ExecutorService clientPool = Executors.newFixedThreadPool(5);
+
+        Runnable serverTask = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ServerSocket serverSocket = new ServerSocket(8080);
+                    System.out.println("ATTENTE CLIENT");
+                    while (true) {
+                        Socket clientSocket = serverSocket.accept();
+                        //clientPool.su
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+    public void start() {
         acceptConnection();
 
             while (true) {

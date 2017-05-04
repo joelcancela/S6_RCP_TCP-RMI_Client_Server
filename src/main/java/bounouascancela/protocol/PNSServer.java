@@ -5,7 +5,9 @@ package bounouascancela.protocol;
  *
  * @author Joël CANCELA VAZ
  */
-public interface PNSServer extends Runnable {
+public interface PNSServer {
+
+    public void start();
 
     //Serveur
     boolean acceptConnection();

@@ -29,19 +29,19 @@ public class App {
             switch (choice) {
                 case "C":
                     pnsClient = new PNSClientImplTCP(ip, port);
-                    new Thread(pnsClient).start();
+                    //pnsClient.start();
                     goodchoice=true;
                     break;
                 case "S":
                     pnsServer = new PNSServerImplTCP();
-                    new Thread(pnsServer).start();
+                    //pnsServer.start();
                     goodchoice=true;
                     break;
                 case "B":
                     pnsClient = new PNSClientImplTCP(ip, port);
-                    new Thread(pnsClient).start();
+                    //new Thread(pnsClient).start();
                     pnsServer = new PNSServerImplTCP();
-                    new Thread(pnsServer).start();
+                    //new Thread(pnsServer).start();
                     goodchoice=true;
                     break;
                 default:

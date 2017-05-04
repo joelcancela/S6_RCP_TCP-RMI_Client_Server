@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author Joël CANCELA VAZ
  * @author Nassim B.
  */
-public class PNSClientImplTCP extends Thread implements PNSClient {
+public class PNSClientImplTCP implements PNSClient {
     Scanner scanner = new Scanner(System.in);
     private String ip;
     private int port;
@@ -30,7 +30,7 @@ public class PNSClientImplTCP extends Thread implements PNSClient {
         this.port = Integer.parseInt(port);
     }
 
-    public void run() {
+    public void start() {
         System.out.println("CLIENT");
         while (!endOfCommunication) {
             while (askConnection()) {
