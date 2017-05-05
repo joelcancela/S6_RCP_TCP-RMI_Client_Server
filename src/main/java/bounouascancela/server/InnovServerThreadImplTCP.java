@@ -1,5 +1,8 @@
 package bounouascancela.server;
 
+import sharedobjects.Command;
+import sharedobjects.CommandQuit;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -40,8 +43,11 @@ public class InnovServerThreadImplTCP implements Runnable {
         System.out.println("Connexion du client n° : " + this.idClient);
 
         try {
-            while ((received = objectInputStream.readObject()) instanceof  String && !((String)received).equals("quit")) {
+            while ((received = objectInputStream.readObject()) instanceof Command) {
                 System.out.println("Received : " + received);
+                if (received instanceof CommandQuit) {
+                    break;
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
