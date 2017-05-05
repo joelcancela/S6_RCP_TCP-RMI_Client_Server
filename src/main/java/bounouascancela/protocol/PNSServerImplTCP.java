@@ -27,6 +27,10 @@ public class PNSServerImplTCP implements PNSServer {
     public PNSServerImplTCP() {
         this.port = 8080;
     }
+    public PNSServerImplTCP(int port) {
+        this.port = port;
+    }
+
 
     public void startServer() {
         final ExecutorService clientPool = Executors.newFixedThreadPool(5);

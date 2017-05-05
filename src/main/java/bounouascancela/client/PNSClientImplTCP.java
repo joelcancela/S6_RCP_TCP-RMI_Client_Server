@@ -24,9 +24,9 @@ public class PNSClientImplTCP implements PNSClient {
     private ObjectOutputStream bOut;            // Buffer sortie en mode "bytes"
     private boolean endOfCommunication = false;
 
-    public PNSClientImplTCP(String ip, String port) {
+    public PNSClientImplTCP(String ip, int port) {
         this.ip = ip;
-        this.port = Integer.parseInt(port);
+        this.port = port;
     }
 
     public void start() {
