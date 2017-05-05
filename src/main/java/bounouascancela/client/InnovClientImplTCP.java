@@ -27,20 +27,21 @@ public class InnovClientImplTCP extends InnovClient {
 
     }
 
-    public InnovClientImplTCP(){
-        this("localhost", 8080);
-    }
-
-    public InnovClientImplTCP(String ip, int port){
+    public InnovClientImplTCP(String ip, int port) {
         super(ip, port);
     }
 
     protected void connect() {
         try {
             this.socket = new Socket(this.ip, this.port);
+            System.out.println("Connecté à "+ip+":"+port);
             this.objectOutputStream = new ObjectOutputStream(this.socket.getOutputStream());
-            this.objectInputStream  = new ObjectInputStream(this.socket.getInputStream());
-            System.out.printf("###>");
+            this.objectInputStream = new ObjectInputStream(this.socket.getInputStream());
+            try {//TODO Remove before transfer #MessageDaccueil
+                System.out.println(objectInputStream.readObject());
+            } catch (ClassNotFoundException e) {
+            }
+            System.out.printf("###> ");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,13 +53,13 @@ public class InnovClientImplTCP extends InnovClient {
     }
 
     protected void send() {
-        while(this.getInput() != null){
+        while (this.getInput() != null) {
 
             try {
                 Object toSend = this.parseInput();
                 this.objectOutputStream.writeObject(toSend);
                 System.out.printf("###>");
-            } catch (UnrecognizedCommandException e){
+            } catch (UnrecognizedCommandException e) {
                 System.out.println("Sorry, this command is undefined");
                 System.out.printf("###>");
             } catch (IOException e) {
@@ -71,24 +72,25 @@ public class InnovClientImplTCP extends InnovClient {
         String[] tokens = this.input.trim().split(" ");
         Command toSend;
         switch (tokens[0]) {
+
             case "add" :
                 this.inputProject();
                 toSend = new CommandAdd(null);
                 break;
 
-            case "help" :
+            case "help":
                 toSend = new CommandHelp();
                 break;
 
-            case "list" :
+            case "list":
                 toSend = new CommandList();
                 break;
 
-            case "quit" :
+            case "quit":
                 toSend = new CommandQuit();
                 break;
 
-            default :
+            default:
                 throw new UnrecognizedCommandException();
         }
 
