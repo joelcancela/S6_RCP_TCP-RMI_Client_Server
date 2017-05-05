@@ -1,4 +1,4 @@
-package bounouascancela.sharedobjects;
+package sharedobjects;
 
 /**
  * Created by Nassim B on 28/04/17.

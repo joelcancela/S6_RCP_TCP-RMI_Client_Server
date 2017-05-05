@@ -1,4 +1,4 @@
-package bounouascancela.sharedobjects;
+package sharedobjects;
 
 import java.io.Serializable;
 

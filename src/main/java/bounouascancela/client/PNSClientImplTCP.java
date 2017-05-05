@@ -1,7 +1,6 @@
-package bounouascancela.protocol;
+package bounouascancela.client;
 
-import bounouascancela.sharedobjects.*;
-import com.sun.corba.se.impl.orbutil.ObjectUtility;
+import sharedobjects.*;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

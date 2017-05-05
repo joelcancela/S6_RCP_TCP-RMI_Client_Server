@@ -1,4 +1,4 @@
-package bounouascancela.protocol;
+package bounouascancela.client;
 
 /**
  * Class x

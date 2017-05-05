@@ -1,4 +1,4 @@
-package bounouascancela.protocol.client;
+package bounouascancela.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

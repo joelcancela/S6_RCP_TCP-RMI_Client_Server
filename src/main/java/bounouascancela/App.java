@@ -1,7 +1,7 @@
 package bounouascancela;
 
-import bounouascancela.protocol.PNSClient;
-import bounouascancela.protocol.PNSClientImplTCP;
+import bounouascancela.client.PNSClient;
+import bounouascancela.client.PNSClientImplTCP;
 import bounouascancela.protocol.PNSServer;
 import bounouascancela.protocol.PNSServerImplTCP;
 
