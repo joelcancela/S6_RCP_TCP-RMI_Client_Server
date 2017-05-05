@@ -1,6 +1,7 @@
 package bounouascancela;
 
-import bounouascancela.client.PNSClient;
+import bounouascancela.client.InnovClient;
+import bounouascancela.client.InnovClientImplTCP;
 import bounouascancela.server.InnovServer;
 import bounouascancela.server.InnovServerImplTCP;
 
@@ -29,14 +30,14 @@ public class App {
                 case "C":
                     ip = entrerIp(scanner);
                     port = entrerPort(scanner);
-                    PNSClient pnsClient = new PNSClientImplTCP(ip, port);
-                    pnsClient.start();
+                    InnovClient innovClient = new InnovClientImplTCP(ip, port);
+                    innovClient.start();
                     goodchoice = true;
                     break;
                 case "S":
                     port = entrerPort(scanner);
                     InnovServer innovServer = new InnovServerImplTCP(port);
-                    innovServer.launchThreads();
+                    innovServer.start();
                     goodchoice = true;
                     break;
                 default:

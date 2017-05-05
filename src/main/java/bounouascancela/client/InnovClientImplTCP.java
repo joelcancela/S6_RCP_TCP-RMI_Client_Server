@@ -18,13 +18,11 @@ public class InnovClientImplTCP extends InnovClient {
     private Scanner scanner = new Scanner(System.in);
     private String input;
 
-    public static void main(String[] args) {
+    public void start() {
 
         System.out.println("Client lancé");
-
-        InnovClientImplTCP innovClient = new InnovClientImplTCP();
-        innovClient.connect();
-        innovClient.send();
+        connect();
+        send();
 
     }
 

@@ -7,7 +7,7 @@ package bounouascancela.server;
  */
 public abstract class InnovServer {
 
-    public abstract void launchThreads();
+    public abstract void start();
     public abstract int addClient(Object stream);
     public abstract void delClient(int idClient);
 

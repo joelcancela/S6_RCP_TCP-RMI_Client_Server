@@ -19,7 +19,7 @@ public class InnovServerImplTCP extends InnovServer {
         this.port = port;
     }
 
-    public void launchThreads() {
+    public void start() {
 
         try {
             //new Commandes(innovServerImplTCP);

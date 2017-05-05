@@ -18,5 +18,6 @@ public abstract class InnovClient {
     protected abstract void connect();
     protected abstract String getInput();
     protected abstract void send();
+    public abstract void start();
     protected abstract Command parseInput();
 }
