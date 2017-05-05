@@ -74,8 +74,7 @@ public class InnovClientImplTCP extends InnovClient {
         switch (tokens[0]) {
 
             case "add" :
-                this.inputProject();
-                toSend = new CommandAdd(null);
+                toSend = new CommandAdd(this.inputProject());
                 break;
 
             case "help":
