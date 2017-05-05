@@ -1,6 +1,7 @@
 package bounouascancela.client;
 
 import sharedobjects.Command;
+import sharedobjects.Idea;
 
 /**
  * Created by Nassim B on 05/05/17.
@@ -20,4 +21,5 @@ public abstract class InnovClient {
     protected abstract void send();
     public abstract void start();
     protected abstract Command parseInput();
+    protected abstract Idea inputProject();
 }

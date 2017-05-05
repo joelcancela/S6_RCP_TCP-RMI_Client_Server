@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -71,6 +72,7 @@ public class InnovClientImplTCP extends InnovClient {
         Command toSend;
         switch (tokens[0]) {
             case "add" :
+                this.inputProject();
                 toSend = new CommandAdd(null);
                 break;
 
@@ -91,5 +93,20 @@ public class InnovClientImplTCP extends InnovClient {
         }
 
         return toSend;
+    }
+
+    protected Idea inputProject() {
+        System.out.printf("\tProject Name : ");
+        String name = scanner.nextLine();
+        System.out.printf("\tCreator Name : ");
+        String creator = scanner.nextLine();
+        System.out.printf("\tCreator Mail : ");
+        String mail = scanner.nextLine();
+        System.out.printf("\tProject Description : ");
+        String description = scanner.nextLine();
+        System.out.printf("\tTech (coma separated) : ");
+        String[] techs = scanner.nextLine().split(",");
+
+        return new Idea(name,new Student(creator, mail), description, techs);
     }
 }

@@ -1,6 +1,7 @@
 package bounouascancela.server;
 
 import sharedobjects.Command;
+import sharedobjects.CommandAdd;
 import sharedobjects.CommandQuit;
 
 import java.io.IOException;
@@ -45,6 +46,14 @@ public class InnovServerThreadImplTCP implements Runnable {
         try {
             while ((received = objectInputStream.readObject()) instanceof Command) {
                 System.out.println("Received : " + received);
+                if (received instanceof CommandAdd) {
+                    System.out.println("Name        : " + ((CommandAdd) received).getIdea().getName());
+                    System.out.println("Creator     : " + ((CommandAdd) received).getIdea().getCreator().getName());
+                    System.out.println("Mail        : " + ((CommandAdd) received).getIdea().getCreator().getEmail());
+                    System.out.println("Description : " + ((CommandAdd) received).getIdea().getDesc());
+                    System.out.println("Techs : " + ((CommandAdd) received).getIdea().getTechs().toString());
+                }
+
                 if (received instanceof CommandQuit) {
                     break;
                 }
