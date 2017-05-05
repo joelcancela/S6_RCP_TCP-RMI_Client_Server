@@ -1,43 +1,22 @@
 package bounouascancela.client;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.Scanner;
+import sharedobjects.Command;
 
 /**
- * Created by Nassim B on 04/05/17.
+ * Created by Nassim B on 05/05/17.
  */
-public class InnovClient {
-    private String ip = "localhost";
-    private int port = 8080;
-    private Socket socket;                         // Socket de connexion au client
-    private ObjectOutputStream objectOutputStream; // Flux de sortie vers le client
-    private ObjectInputStream objectInputStream;   // Flux d'entrée depuis le client
-    private Object toSend;
+public abstract class InnovClient {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Client lancé");
-        InnovClient innovClient = new InnovClient();
+    protected String ip;
+    protected int port;
 
-        try {
-            innovClient.socket = new Socket(innovClient.ip, innovClient.port);
-            innovClient.objectOutputStream = new ObjectOutputStream(innovClient.socket.getOutputStream());
-            innovClient.objectInputStream  = new ObjectInputStream(innovClient.socket.getInputStream());
-            System.out.printf("###>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        while((innovClient.toSend = scanner.nextLine()) != null){
-            try {
-                innovClient.objectOutputStream.writeObject(innovClient.toSend);
-                System.out.printf("###>");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    protected InnovClient(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
     }
+
+    protected abstract void connect();
+    protected abstract String getInput();
+    protected abstract void send();
+    protected abstract Command parseInput();
 }
