@@ -8,17 +8,17 @@ import java.net.Socket;
 /**
  * Created by Nassim B on 04/05/17.
  */
-public class InnovServerThread implements Runnable {
+public class InnovServerThreadImplTCP implements Runnable {
     private Thread thread;                         // Thread du client
     private Socket socket;                         // Socket de connexion au client
     private ObjectOutputStream objectOutputStream; // Flux de sortie vers le client
     private ObjectInputStream objectInputStream;   // Flux d'entrée depuis le client
-    private InnovServer innovServer;               // Accès aux méthodes du serveur
+    private InnovServerImplTCP innovServerImplTCP;               // Accès aux méthodes du serveur
     private int idClient;                          // Identifiant du client
 
-    InnovServerThread(Socket socket, InnovServer innovServer) {
+    InnovServerThreadImplTCP(Socket socket, InnovServerImplTCP innovServerImplTCP) {
         this.socket = socket;
-        this.innovServer = innovServer;
+        this.innovServerImplTCP = innovServerImplTCP;
 
         try {
             //Emission
@@ -26,7 +26,7 @@ public class InnovServerThread implements Runnable {
             //Réception
             this.objectInputStream  = new ObjectInputStream(socket.getInputStream());
             //Attribution d'un ID
-            this.idClient = innovServer.addClient(this.objectOutputStream);
+            this.idClient = innovServerImplTCP.addClient(this.objectOutputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class InnovServerThread implements Runnable {
         finally {
             try {
                 System.out.println("Client n° " + this.idClient + " déconnecté");
-                this.innovServer.delClient(this.idClient);
+                this.innovServerImplTCP.delClient(this.idClient);
                 this.socket.close();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -1,55 +1,73 @@
 package bounouascancela;
 
 import bounouascancela.client.PNSClient;
-import bounouascancela.client.PNSClientImplTCP;
-import bounouascancela.protocol.PNSServer;
-import bounouascancela.protocol.PNSServerImplTCP;
+import bounouascancela.server.InnovServer;
+import bounouascancela.server.InnovServerImplTCP;
 
 import java.util.Scanner;
 
 /**
- * Hello world!
+ * Main App
  */
 public class App {
+
     public static void main(String[] args) {
-
-        if(args.length<2)
-            return;
-        String ip = args[0];
-        String port = args[1];
-        System.out.println("Arguments: "+ip+" "+port);
-
-        System.out.println("Lancer client (C), serveur (S), les deux (B) :");
         Scanner scanner = new Scanner(System.in);
-        PNSClient pnsClient;
-        PNSServer pnsServer;
+//        String protocol = entrerProtocole(scanner);
+//        entrerChoix(scanner,protocol);
+        entrerChoix(scanner);
+    }
+
+    private static void entrerChoix(Scanner scanner) {
+        System.out.println("Lancer client (C), serveur (S)");
         boolean goodchoice = false;
-        while(!goodchoice){
+        while (!goodchoice) {
             String choice = scanner.nextLine();
+            String ip;
+            int port;
             switch (choice) {
                 case "C":
-                    pnsClient = new PNSClientImplTCP(ip, port);
-                    //pnsClient.start();
-                    goodchoice=true;
+                    ip = entrerIp(scanner);
+                    port = entrerPort(scanner);
+                    PNSClient pnsClient = new PNSClientImplTCP(ip, port);
+                    pnsClient.start();
+                    goodchoice = true;
                     break;
                 case "S":
-                    pnsServer = new PNSServerImplTCP();
-                    //pnsServer.start();
-                    goodchoice=true;
-                    break;
-                case "B":
-                    pnsClient = new PNSClientImplTCP(ip, port);
-                    //new Thread(pnsClient).start();
-                    pnsServer = new PNSServerImplTCP();
-                    //new Thread(pnsServer).start();
-                    goodchoice=true;
+                    port = entrerPort(scanner);
+                    InnovServer innovServer = new InnovServerImplTCP(port);
+                    innovServer.launchThreads();
+                    goodchoice = true;
                     break;
                 default:
                     break;
             }
         }
 
+    }
 
+    private static String entrerProtocole(Scanner scanner) {
+        return null;
+    }
+
+    private static int entrerPort(Scanner scanner) {
+        System.out.println("Enter port: ");
+        int choice = scanner.nextInt();
+        return choice;
+    }
+
+    private static String entrerIp(Scanner scanner) {
+        System.out.println("Enter ip: ");
+        String IPADDRESS_PATTERN =
+                "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+        String choice = null;
+        while (true) {
+            choice = scanner.nextLine();
+            if (choice.matches(IPADDRESS_PATTERN) || choice.equals("localhost")) {
+                break;
+            }
+        }
+        return choice;
     }
 
 
