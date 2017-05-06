@@ -1,0 +1,12 @@
+Binôme CANCELA VAZ - BOUNOUAS (en quatuor avec le binôme UNG - ORLANDINI)
+
+Premières fonctionnalités implémentées :
+
+- Commande "add" : d’ajouter une nouvelle idée
+- Commande "list": de lister l’ensemble des idées
+- Commande "help": obtenir de l'aide
+- Commande "quit": arrêter la connexion
+
+Sérialisation choisie: Objet
+
+Utilisation: Lancer la classe App et tout se fait dans la console
