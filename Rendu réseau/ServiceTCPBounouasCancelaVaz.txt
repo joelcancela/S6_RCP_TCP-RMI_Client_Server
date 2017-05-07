@@ -1,12 +1,33 @@
 Binôme CANCELA VAZ - BOUNOUAS (en quatuor avec le binôme UNG - ORLANDINI)
 
-Premières fonctionnalités implémentées :
+Notre serveur implémente les fonctionnalités suivantes :
 
 - Commande "add" : d’ajouter une nouvelle idée
 - Commande "list": de lister l’ensemble des idées
 - Commande "help": obtenir de l'aide
 - Commande "quit": arrêter la connexion
 
-Sérialisation choisie: Objet
+Sérialisation Objet a été choisie avec le protocole suivant :
 
-Utilisation: Lancer la classe App et tout se fait dans la console
+Nous disposons d'objets de supertype Command (CommandAdd, CommandList, CommandHelp, CommandQuit) ainsi que des objets de type : Idea, Student.
+
+La communication client/serveur ne se fait que par l'envoi et la réception d'objets de type Command.
+
+L'objet CommandAdd contient un objet de type Idea, contenant lui même un objet de type Student (Le créateur de l'idée/projet).
+
+Les objets CommandList, CommandHelp et CommandQuit ne contiennent rien de particulier et servent de "marqueurs d'action" afin que le serveur lors de leur réception soit capable de respectivement :
+
+- Renvoyer la liste des idées disponibles
+- Renvoyer un listing des actions possibles sur le serveur
+- Fermer correctement la connexion du client.
+
+Bien évidemment, l'envoi de certaines commandes nécessitent un traitement post-envoi par le client : Par exemple après l'envoi d'un CommandQuit, il est attendu que le client ferme sa connexion au serveur. (Le serveur fermant de son coté la connexion, cet oubli du coté client entrainera une erreur).
+
+Utilisation: Nous avons fait le choix d'un fonctionnement via la console.
+
+Notre serveur et notre application sont livrées en une seule application où lors du lancement, il faut choisir entre le mode Serveur (S) ou Client (C).
+
+Le test de l'application peut donc se faire en lançant à deux instances de l'application et en choisissant une première fois Serveur puis Client dans la deuxième instance.
+
+Lors du lancement du serveur, il est demandé de saisir le port sur lequel celui va écouter.
+Lors du lancement du client, il est demandé de saisir l'ip du serveur puis le port d'écoute.
