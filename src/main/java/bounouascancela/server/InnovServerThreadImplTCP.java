@@ -1,8 +1,6 @@
 package bounouascancela.server;
 
-import sharedobjects.Command;
-import sharedobjects.CommandAdd;
-import sharedobjects.CommandQuit;
+import sharedobjects.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -46,16 +44,17 @@ public class InnovServerThreadImplTCP implements Runnable {
 
         try {
             while ((received = objectInputStream.readObject()) instanceof Command) {
-                System.out.println("Received : " + received);
+                System.out.println("Received : " + received.getClass().getName() + " from client : " + this.idClient);
                 if (received instanceof CommandAdd) {
-                    System.out.println("Name        : " + ((CommandAdd) received).getIdea().getName());
-                    System.out.println("Creator     : " + ((CommandAdd) received).getIdea().getCreator().getName());
-                    System.out.println("Mail        : " + ((CommandAdd) received).getIdea().getCreator().getEmail());
-                    System.out.println("Description : " + ((CommandAdd) received).getIdea().getDesc());
-                    System.out.println("Techs : " + ((CommandAdd) received).getIdea().getTechs().toString());
-                }
-
-                if (received instanceof CommandQuit) {
+                    innovServerImplTCP.addIdea(((CommandAdd) received).getIdea());
+                    objectOutputStream.writeObject(new String("Project added"));
+                }else if (received instanceof CommandList) {
+                    String ideasListing = innovServerImplTCP.listIdeas();
+                    objectOutputStream.writeObject(ideasListing);
+                }else if (received instanceof CommandHelp) {
+                    objectOutputStream.writeObject("This server is accepting those commands objects : CommandAdd, CommandList, CommandHelp, CommandQuit");
+                }else if (received instanceof CommandQuit) {
+                    objectOutputStream.writeObject(new String("See you later on our server ;)"));
                     break;
                 }
             }

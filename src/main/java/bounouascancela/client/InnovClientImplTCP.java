@@ -58,6 +58,11 @@ public class InnovClientImplTCP extends InnovClient {
             try {
                 Object toSend = this.parseInput();
                 this.objectOutputStream.writeObject(toSend);
+                try {
+                    System.out.println(this.objectInputStream.readObject().toString());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 System.out.printf("###>");
             } catch (UnrecognizedCommandException e) {
                 System.out.println("Sorry, this command is undefined");
