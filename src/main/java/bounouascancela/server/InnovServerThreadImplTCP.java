@@ -60,7 +60,7 @@ public class InnovServerThreadImplTCP implements Runnable {
                 objectOutputStream.writeObject(serverResponse);
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Connection ended");
         }
 
         finally {

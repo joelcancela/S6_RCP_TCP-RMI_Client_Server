@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 /**
  * Created by Nassim B on 04/05/17.
  */
@@ -45,7 +47,7 @@ public class InnovClientImplTCP extends InnovClient {
             }
             System.out.printf("###> ");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Connection refused");
         }
     }
 
