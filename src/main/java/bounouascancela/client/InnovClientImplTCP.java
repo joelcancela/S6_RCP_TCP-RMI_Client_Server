@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 /**
  * Created by Nassim B on 04/05/17.
  */
@@ -43,7 +45,7 @@ public class InnovClientImplTCP extends InnovClient {
             }
             System.out.printf("###> ");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Connection refused");
         }
     }
 
@@ -60,6 +62,9 @@ public class InnovClientImplTCP extends InnovClient {
                 this.objectOutputStream.writeObject(toSend);
                 try {
                     System.out.println(this.objectInputStream.readObject().toString());
+                    if(toSend instanceof CommandQuit){
+                        exit(0);
+                    }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
