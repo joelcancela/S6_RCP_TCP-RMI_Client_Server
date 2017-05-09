@@ -29,7 +29,9 @@ public class InnovServerThreadImplTCP implements Runnable {
             this.objectInputStream  = new ObjectInputStream(socket.getInputStream());
             //Attribution d'un ID
             this.idClient = innovServerImplTCP.addClient(this.objectOutputStream);
-            objectOutputStream.writeObject("Bienvenue sur le Serveur PNS Innov!");//TODO Remove before transfer #MessageDaccueil
+            ServerResponse serverResponse = new ServerResponse();
+            serverResponse.writeResponse("Welcome on PNS Innov Server!");
+            objectOutputStream.writeObject(serverResponse);//TODO Remove before transfer #MessageDaccueil
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +42,7 @@ public class InnovServerThreadImplTCP implements Runnable {
 
     public void run() {
         Object received;
-        System.out.println("Connexion du client n° : " + this.idClient);
+        System.out.println("Client n° : " + this.idClient + " connected");
 
         try {
             while ((received = objectInputStream.readObject()) instanceof Command) {
@@ -55,6 +57,7 @@ public class InnovServerThreadImplTCP implements Runnable {
                     serverResponse.writeResponse("This server is accepting those commands objects : CommandAdd, CommandList, CommandHelp, CommandQuit");
                 }else if (received instanceof CommandQuit) {
                     serverResponse.writeResponse("See you later on our server ;)");
+                    objectOutputStream.writeObject(serverResponse);
                     break;
                 }
                 objectOutputStream.writeObject(serverResponse);
@@ -65,7 +68,7 @@ public class InnovServerThreadImplTCP implements Runnable {
 
         finally {
             try {
-                System.out.println("Client n° " + this.idClient + " déconnecté");
+                System.out.println("Client n° " + this.idClient + " disconnected");
                 this.innovServerImplTCP.delClient(this.idClient);
                 this.socket.close();
             } catch (IOException e) {

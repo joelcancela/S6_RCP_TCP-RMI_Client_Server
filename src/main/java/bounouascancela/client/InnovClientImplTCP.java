@@ -38,11 +38,11 @@ public class InnovClientImplTCP extends InnovClient {
     protected void connect() {
         try {
             this.socket = new Socket(this.ip, this.port);
-            System.out.println("Connecté à "+ip+":"+port);
+            System.out.println("Connected to "+ip+":"+port);
             this.objectOutputStream = new ObjectOutputStream(this.socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(this.socket.getInputStream());
             try {//TODO Remove before transfer #MessageDaccueil
-                System.out.println(objectInputStream.readObject());
+                System.out.println(((ServerResponse)objectInputStream.readObject()).readResponse());
             } catch (ClassNotFoundException e) {
             }
             System.out.printf("###> ");
@@ -63,6 +63,7 @@ public class InnovClientImplTCP extends InnovClient {
                 toSend = this.parseInput();
                 this.objectOutputStream.writeObject(toSend);
                 this.processResponse();
+                if (toSend instanceof CommandQuit) break;
                 System.out.printf("###>");
             } catch (UnrecognizedCommandException e) {
                 System.out.println("Sorry, this command is undefined");
@@ -87,7 +88,7 @@ public class InnovClientImplTCP extends InnovClient {
                         stringBuilder.append(i + " : " + idea.getName() + " by " + idea.getCreator().getName() + '\n');
                     }
                 } else {
-                    stringBuilder.append("Aucun projet disponible sur le serveur");
+                    stringBuilder.append("No project available on the server.");
                 }
                 System.out.println(stringBuilder.toString());
             }

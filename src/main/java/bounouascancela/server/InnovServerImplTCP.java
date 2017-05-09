@@ -22,9 +22,8 @@ public class InnovServerImplTCP extends InnovServer {
     public void start() {
 
         try {
-            //new Commandes(innovServerImplTCP);
             ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Serveur créé");
+            System.out.println("Server created");
             while (true) {
                 new InnovServerThreadImplTCP(serverSocket.accept(), this);
             }
