@@ -52,7 +52,7 @@ public class InnovServerThreadImplTCP implements Runnable {
                     String ideasListing = innovServerImplTCP.listIdeas();
                     objectOutputStream.writeObject(ideasListing);
                 }else if (received instanceof CommandHelp) {
-                    objectOutputStream.writeObject("This server is accepting those commands objects : CommandAdd, CommandList, CommandHelp, CommandQuit");
+                    objectOutputStream.writeObject("This server is accepting those commands objects : CommandAdd (add), CommandList (list), CommandHelp (help), CommandQuit (quit)");
                 }else if (received instanceof CommandQuit) {
                     objectOutputStream.writeObject(new String("See you later on our server ;)"));
                     break;
