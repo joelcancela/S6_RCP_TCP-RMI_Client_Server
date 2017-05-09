@@ -27,17 +27,8 @@ public abstract class InnovServer {
         return this.ideas.get(i);
     }
 
-    public String listIdeas() {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (this.ideas.size() > 0) {
-            for (int i = 0; i < this.ideas.size(); i++) {
-                Idea idea = this.ideas.get(i);
-                stringBuilder.append(i + " : " + idea.getName() + " by " + idea.getCreator().getName() + '\n');
-            }
-        } else {
-            stringBuilder.append("Aucun projet disponible sur le serveur");
-        }
-        return stringBuilder.toString();
+    public List<Idea> getIdeas() {
+        return ideas;
     }
 
 }

@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,6 +19,7 @@ public class InnovClientImplTCP extends InnovClient {
     private ObjectInputStream objectInputStream;   // Flux d'entrée depuis le client
     private Scanner scanner = new Scanner(System.in);
     private String input;
+    private List<Idea> ideas;
 
     public void start() {
 
@@ -56,13 +58,9 @@ public class InnovClientImplTCP extends InnovClient {
         while (this.getInput() != null) {
 
             try {
-                Object toSend = this.parseInput();
+                toSend = this.parseInput();
                 this.objectOutputStream.writeObject(toSend);
-                try {
-                    System.out.println(this.objectInputStream.readObject().toString());
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                this.processResponse();
                 System.out.printf("###>");
             } catch (UnrecognizedCommandException e) {
                 System.out.println("Sorry, this command is undefined");
@@ -73,6 +71,28 @@ public class InnovClientImplTCP extends InnovClient {
         }
     }
 
+    protected void processResponse() {
+        try {
+            ServerResponse receivedObject = (ServerResponse) this.objectInputStream.readObject();
+            if (toSend instanceof CommandAdd | toSend instanceof CommandHelp | toSend instanceof CommandQuit) {
+                System.out.println(receivedObject.readResponse());
+            } else if (toSend instanceof CommandList) {
+                this.ideas = receivedObject.getIdeas();
+                StringBuilder stringBuilder = new StringBuilder();
+                if (this.ideas.size() > 0) {
+                    for (int i = 0; i < this.ideas.size(); i++) {
+                        Idea idea = this.ideas.get(i);
+                        stringBuilder.append(i + " : " + idea.getName() + " by " + idea.getCreator().getName() + '\n');
+                    }
+                } else {
+                    stringBuilder.append("Aucun projet disponible sur le serveur");
+                }
+                System.out.println(stringBuilder.toString());
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     protected Command parseInput() throws UnrecognizedCommandException {
         String[] tokens = this.input.trim().split(" ");
         Command toSend;

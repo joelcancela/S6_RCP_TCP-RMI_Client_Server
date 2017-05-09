@@ -44,19 +44,20 @@ public class InnovServerThreadImplTCP implements Runnable {
 
         try {
             while ((received = objectInputStream.readObject()) instanceof Command) {
-                System.out.println("Received : " + received.getClass().getName() + " from client : " + this.idClient);
+                ServerResponse serverResponse = new ServerResponse();
+                //System.out.println("Received : " + received.getClass().getName() + " from client : " + this.idClient);
                 if (received instanceof CommandAdd) {
                     innovServerImplTCP.addIdea(((CommandAdd) received).getIdea());
-                    objectOutputStream.writeObject(new String("Project added"));
+                    serverResponse.writeResponse("Project added");
                 }else if (received instanceof CommandList) {
-                    String ideasListing = innovServerImplTCP.listIdeas();
-                    objectOutputStream.writeObject(ideasListing);
+                    serverResponse.addIdeas(this.innovServerImplTCP.getIdeas());
                 }else if (received instanceof CommandHelp) {
-                    objectOutputStream.writeObject("This server is accepting those commands objects : CommandAdd, CommandList, CommandHelp, CommandQuit");
+                    serverResponse.writeResponse("This server is accepting those commands objects : CommandAdd, CommandList, CommandHelp, CommandQuit");
                 }else if (received instanceof CommandQuit) {
-                    objectOutputStream.writeObject(new String("See you later on our server ;)"));
+                    serverResponse.writeResponse("See you later on our server ;)");
                     break;
                 }
+                objectOutputStream.writeObject(serverResponse);
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

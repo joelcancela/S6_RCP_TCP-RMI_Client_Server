@@ -10,6 +10,7 @@ public abstract class InnovClient {
 
     protected String ip;
     protected int port;
+    protected Command toSend;
 
     protected InnovClient(String ip, int port) {
         this.ip = ip;

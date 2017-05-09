@@ -2,26 +2,27 @@ Binôme CANCELA VAZ - BOUNOUAS (en quatuor avec le binôme UNG - ORLANDINI)
 
 Notre serveur implémente les fonctionnalités suivantes :
 
-- Commande "add" : d’ajouter une nouvelle idée
-- Commande "list": de lister l’ensemble des idées
+- Commande "add" : ajout d'une nouvelle idée
+- Commande "list": lister l’ensemble des idées
 - Commande "help": obtenir de l'aide
 - Commande "quit": arrêter la connexion
 
 Sérialisation Objet a été choisie avec le protocole suivant :
 
-Nous disposons d'objets de supertype Command (CommandAdd, CommandList, CommandHelp, CommandQuit) ainsi que des objets de type : Idea, Student.
+Nous disposons d'objets du supertype Command (CommandAdd, CommandList, CommandHelp, CommandQuit) ainsi que des objets de type : Idea, Student enfin la réponse du serveur se fait au travers d'un Objet "ServerResponse"
 
-La communication client/serveur ne se fait que par l'envoi et la réception d'objets de type Command.
+La communication client/serveur ne se fait que par l'envoi d'un objet de type Command depuis le client et la réception d'un objet "ServerResponse".
 
 L'objet CommandAdd contient un objet de type Idea, contenant lui même un objet de type Student (Le créateur de l'idée/projet).
 
 Les objets CommandList, CommandHelp et CommandQuit ne contiennent rien de particulier et servent de "marqueurs d'action" afin que le serveur lors de leur réception soit capable de respectivement :
 
-- Renvoyer la liste des idées disponibles
+- Renvoyer une liste des idées disponibles
 - Renvoyer un listing des actions possibles sur le serveur
 - Fermer correctement la connexion du client.
 
 Bien évidemment, l'envoi de certaines commandes nécessitent un traitement post-envoi par le client : Par exemple après l'envoi d'un CommandQuit, il est attendu que le client ferme sa connexion au serveur. (Le serveur fermant de son coté la connexion, cet oubli du coté client entrainera une erreur).
+
 
 Utilisation: Nous avons fait le choix d'un fonctionnement via la console.
 
