@@ -1,5 +1,7 @@
 Binôme CANCELA VAZ - BOUNOUAS (en quatuor avec le binôme UNG - ORLANDINI)
 
+La totalité des transactions avec le serveur que nous avons implémenté se fait via le protocole TCP (ObjectOutputStream/ObjectInputStream).
+
 Notre serveur implémente les fonctionnalités suivantes :
 
 - Commande "add" : ajout d'une nouvelle idée
@@ -23,7 +25,7 @@ Les objets CommandList, CommandHelp et CommandQuit ne contiennent rien de partic
 
 Bien évidemment, l'envoi de certaines commandes nécessitent un traitement post-envoi par le client : Par exemple après l'envoi d'un CommandQuit, il est attendu que le client ferme sa connexion au serveur. (Le serveur fermant de son coté la connexion, cet oubli du coté client entrainera une erreur).
 
-
+s
 Utilisation: Nous avons fait le choix d'un fonctionnement via la console.
 
 Notre serveur et notre application sont livrées en une seule application où lors du lancement, il faut choisir entre le mode Serveur (S) ou Client (C).
