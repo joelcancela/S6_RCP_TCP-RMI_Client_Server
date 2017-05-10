@@ -31,7 +31,7 @@ public class InnovServerThreadImplTCP implements Runnable {
             this.idClient = innovServerImplTCP.addClient(this.objectOutputStream);
             ServerResponse serverResponse = new ServerResponse();
             serverResponse.writeResponse("Welcome on PNS Innov Server!");
-            objectOutputStream.writeObject(serverResponse);//TODO Remove before transfer #MessageDaccueil
+            objectOutputStream.writeObject(serverResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }

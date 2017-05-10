@@ -41,7 +41,7 @@ public class InnovClientImplTCP extends InnovClient {
             System.out.println("Connected to "+ip+":"+port);
             this.objectOutputStream = new ObjectOutputStream(this.socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(this.socket.getInputStream());
-            try {//TODO Remove before transfer #MessageDaccueil
+            try {
                 System.out.println(((ServerResponse)objectInputStream.readObject()).readResponse());
             } catch (ClassNotFoundException e) {
             }

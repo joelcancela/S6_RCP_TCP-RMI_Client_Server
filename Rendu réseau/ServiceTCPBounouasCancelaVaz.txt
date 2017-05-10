@@ -25,7 +25,6 @@ Les objets CommandList, CommandHelp et CommandQuit ne contiennent rien de partic
 
 Bien évidemment, l'envoi de certaines commandes nécessitent un traitement post-envoi par le client : Par exemple après l'envoi d'un CommandQuit, il est attendu que le client ferme sa connexion au serveur. (Le serveur fermant de son coté la connexion, cet oubli du coté client entrainera une erreur).
 
-s
 Utilisation: Nous avons fait le choix d'un fonctionnement via la console.
 
 Notre serveur et notre application sont livrées en une seule application où lors du lancement, il faut choisir entre le mode Serveur (S) ou Client (C).
@@ -34,3 +33,12 @@ Le test de l'application peut donc se faire en lançant à deux instances de l'a
 
 Lors du lancement du serveur, il est demandé de saisir le port sur lequel celui va écouter.
 Lors du lancement du client, il est demandé de saisir l'ip du serveur puis le port d'écoute.
+
+Déroulement :
+-Lancement du serveur
+-Lancement du client
+-Connexion du client
+-Reception d'un message de confirmation de connexion de type String par le client
+-Envois de Command et Receptions de String par le client
+-Envoi de la CommandQuit
+-Fin de la connexion
