@@ -1,7 +1,9 @@
 package sharedobjects;
 
 /**
- * Created by Nassim B on 28/04/17.
+ * Command to send to disconnect
+ * @author Bounouas Nassim
+ * @author Joël CANCELA VAZ
  */
 public class CommandQuit extends Command{
 

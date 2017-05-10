@@ -3,24 +3,37 @@ package sharedobjects;
 import java.io.Serializable;
 
 /**
- * Class Student
- *
+ * Represent a Student
+ * @author Bounouas Nassim
  * @author Joël CANCELA VAZ
  */
 public class Student implements Serializable{
     private String name;
-    private String email;
+    private String mail;
 
-    public Student(String name, String email) {
+    /**
+     * Create a new Student
+     * @param name Student's name
+     * @param mail Student's mail adress
+     */
+    public Student(String name, String mail) {
         this.name = name;
-        this.email = email;
+        this.mail = mail;
     }
 
+    /**
+     * Get Student's name
+     * @return The student's name
+     */
     public String getName() {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    /**
+     * Get Student's mail
+     * @return The student's mail
+     */
+    public String getMail() {
+        return mail;
     }
 }

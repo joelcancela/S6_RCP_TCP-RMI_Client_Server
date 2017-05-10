@@ -3,7 +3,9 @@ package sharedobjects;
 import java.io.Serializable;
 
 /**
- * Created by Nassim B. on 28/04/17.
+ * Abstract class used as top level communication object from client to server.
+ * @author Bounouas Nassim
+ * @author Joël CANCELA VAZ
  */
 public abstract class Command implements Serializable {
 }
