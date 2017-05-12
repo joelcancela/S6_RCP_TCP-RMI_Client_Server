@@ -42,3 +42,9 @@ Déroulement :
 -Envois de Command et Receptions de String par le client
 -Envoi de la CommandQuit
 -Fin de la connexion
+
+
+Notes:
+Dans la classe ServerResponse
+-Utiliser la méthode getIdeas() sur l'objet de type ServerResponse après l'envoi d'un Commandlist
+-Pour le reste readResponse()
