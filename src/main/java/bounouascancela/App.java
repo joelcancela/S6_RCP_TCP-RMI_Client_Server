@@ -1,10 +1,14 @@
 package bounouascancela;
 
 import bounouascancela.client.InnovClient;
+import bounouascancela.client.InnovClientImplRMI;
 import bounouascancela.client.InnovClientImplTCP;
 import bounouascancela.server.InnovServer;
+import bounouascancela.server.InnovServerImplRMI;
 import bounouascancela.server.InnovServerImplTCP;
+import bounouascancela.server.InnovServerRMI;
 
+import java.rmi.RemoteException;
 import java.util.Scanner;
 
 /**
@@ -14,12 +18,52 @@ public class App {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        String protocol = entrerProtocole(scanner);
-//        entrerChoix(scanner,protocol);
-        entrerChoix(scanner);
+        String protocol = entrerProtocole(scanner);
+        entrerChoix(scanner,protocol);
     }
 
-    private static void entrerChoix(Scanner scanner) {
+    private static void entrerChoix(Scanner scanner, String protocol) {
+        if(protocol.equals("T")){
+            entrerChoixTCP(scanner);
+        }
+        else if(protocol.equals("R")){
+            entrerChoixRMI(scanner);
+        }
+        else{
+            return;
+        }
+    }
+
+    private static void entrerChoixRMI(Scanner scanner) {
+        System.out.println("Lancer client (C), serveur (S)");
+        boolean goodchoice = false;
+        while (!goodchoice) {
+            String choice = scanner.nextLine();
+            String ip;
+            switch (choice) {
+                case "C":
+                    ip = entrerIp(scanner);
+                    InnovClient innovClient = new InnovClientImplRMI(ip);
+                    innovClient.start();
+                    goodchoice = true;
+                    break;
+                case "S":
+	                InnovServerRMI innovServer = null;
+	                try {
+		                innovServer = new InnovServerImplRMI();
+		                innovServer.start();
+	                } catch (RemoteException e) {
+		                e.printStackTrace();
+	                }
+                    goodchoice = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private static void entrerChoixTCP(Scanner scanner) {
         System.out.println("Lancer client (C), serveur (S)");
         boolean goodchoice = false;
         while (!goodchoice) {
@@ -48,7 +92,9 @@ public class App {
     }
 
     private static String entrerProtocole(Scanner scanner) {
-        return null;
+        System.out.println("Entrer protocole: TCP(T) - RMI(R)");
+        String choice = scanner.next("R|T");
+        return choice;
     }
 
     private static int entrerPort(Scanner scanner) {
@@ -71,17 +117,4 @@ public class App {
         return choice;
     }
 
-
-    // RMI LATER
-//    String url = "rmi://localhost/PNSServer";
-//                try {
-//        PNSServer ps = (PNSServer) Naming.lookup("PNSServer");
-//    } catch (NotBoundException e) {
-//        e.printStackTrace();
-//    } catch (MalformedURLException e) {
-//        e.printStackTrace();
-//    } catch (RemoteException e) {
-//        e.printStackTrace();
-//    }
-//                new Thread(new PNSServerImplTCP(ps)).start();
 }
