@@ -13,5 +13,4 @@ public interface InnovServerRMI extends Remote {
     String list() throws RemoteException;
     String getIdea(int index) throws RemoteException;
     void setIdeaName(int index, String name) throws RemoteException;
-    String quit() throws RemoteException;
 }

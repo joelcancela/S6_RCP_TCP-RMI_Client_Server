@@ -26,7 +26,7 @@ public class InnovServerImplRMI extends UnicastRemoteObject implements InnovServ
 
     @Override
     public String help() {
-        return "This server is accepting those commands: add, list, help, get, set, quit";
+        return "This server is accepting those commands: add, list, help, getName [n], setName [n][name], quit";
     }
 
     @Override
@@ -62,10 +62,5 @@ public class InnovServerImplRMI extends UnicastRemoteObject implements InnovServ
     public void setIdeaName(int index, String name) throws RemoteException {
         this.database.getItem(index).setName(name);
         System.out.println("Changed project name index : " + index);
-    }
-
-    @Override
-    public String quit() {
-        return "Command quit";
     }
 }

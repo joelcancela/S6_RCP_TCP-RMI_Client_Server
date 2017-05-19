@@ -105,21 +105,22 @@ public class InnovClientImplRMI extends InnovClient {
 				break;
 
 			case "quit":
-				System.out.println(InnovClientImplRMI.stub.quit());
+				System.exit(0);
 				break;
 
-			case "get":
+			case "getName":
 				String ref = InnovClientImplRMI.stub.getIdea(Integer.parseInt(tokens[1]));
 				try {
 					Idea idea = (Idea) this.registry.lookup(ref);
+					//TODO Make list remote / list local
 					System.out.println(idea.getName());
 				} catch (NotBoundException e) {
 					e.printStackTrace();
 				}
 				break;
 
-			case "set":
-				InnovClientImplRMI.stub.setIdeaName(Integer.parseInt(tokens[1]), "DALTON PROJECT");
+			case "setName":
+				InnovClientImplRMI.stub.setIdeaName(Integer.parseInt(tokens[1]), tokens[2]);
 				break;
 
 			default:
