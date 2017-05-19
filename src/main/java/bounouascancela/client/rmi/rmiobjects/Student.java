@@ -1,4 +1,4 @@
-package bounouascancela.rmiobjects;
+package bounouascancela.client.rmi.rmiobjects;
 
 import java.rmi.RemoteException;
 

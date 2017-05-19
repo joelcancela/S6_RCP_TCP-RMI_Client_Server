@@ -1,14 +1,11 @@
 package bounouascancela;
 
 import bounouascancela.client.InnovClient;
-import bounouascancela.client.InnovClientImplRMI;
-import bounouascancela.client.InnovClientImplTCP;
+import bounouascancela.client.rmi.InnovClientImplRMI;
+import bounouascancela.client.tcp.InnovClientImplTCP;
 import bounouascancela.server.InnovServer;
-import bounouascancela.server.InnovServerImplRMI;
-import bounouascancela.server.InnovServerImplTCP;
-import bounouascancela.server.InnovServerRMI;
-
-import java.rmi.RemoteException;
+import bounouascancela.server.rmi.InnovServerRMILauncher;
+import bounouascancela.server.tcp.InnovServerImplTCP;
 import java.util.Scanner;
 
 /**
@@ -48,13 +45,8 @@ public class App {
                     goodchoice = true;
                     break;
                 case "S":
-	                InnovServerRMI innovServer = null;
-	                try {
-		                innovServer = new InnovServerImplRMI();
-		                innovServer.start();
-	                } catch (RemoteException e) {
-		                e.printStackTrace();
-	                }
+	                InnovServerRMILauncher rmiLauncher = new InnovServerRMILauncher();
+	                rmiLauncher.main(null);
                     goodchoice = true;
                     break;
                 default:

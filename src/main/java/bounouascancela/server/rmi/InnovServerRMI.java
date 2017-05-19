@@ -1,15 +1,12 @@
-package bounouascancela.server.serverrmi;
-
-import bounouascancela.rmiobjects.Idea;
+package bounouascancela.server.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 /**
  * Created by Nassim Bounouas on 19/05/2017.
  */
-public interface InnovServerRMINassim extends Remote {
+public interface InnovServerRMI extends Remote {
 
     String help() throws RemoteException;
     String addIdea(String nameCreator, String mailCreator, String ideaName, String ideaDesc, String[] techs) throws RemoteException;

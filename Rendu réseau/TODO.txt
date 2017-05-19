@@ -1,3 +1,0 @@
-TODO: 
-Add to zip, JAVADOC + Objects shared
-RMI

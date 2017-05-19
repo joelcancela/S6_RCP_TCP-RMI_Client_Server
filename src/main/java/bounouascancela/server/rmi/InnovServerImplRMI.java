@@ -1,5 +1,9 @@
-package bounouascancela.server.serverrmi;
+package bounouascancela.server.rmi;
 
+
+import bounouascancela.server.rmi.model.Database;
+import bounouascancela.server.rmi.rmiobjects.IdeaImpl;
+import bounouascancela.server.rmi.rmiobjects.StudentImpl;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -10,19 +14,19 @@ import java.util.UUID;
 /**
  * Created by Nassim Bounouas on 19/05/2017.
  */
-public class InnovRemoteRMI extends UnicastRemoteObject implements InnovServerRMINassim {
+public class InnovServerImplRMI extends UnicastRemoteObject implements InnovServerRMI {
 
     private Registry registry;
     private Database database;
 
-    protected InnovRemoteRMI(Registry registry) throws RemoteException {
+    protected InnovServerImplRMI(Registry registry) throws RemoteException {
         this.registry = registry;
         this.database = Database.getDatabase();
     }
 
     @Override
     public String help() {
-        return "Command help";
+        return "This server is accepting those commands: add, list, help, get, set, quit";
     }
 
     @Override

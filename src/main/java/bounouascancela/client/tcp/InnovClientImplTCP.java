@@ -1,5 +1,7 @@
-package bounouascancela.client;
+package bounouascancela.client.tcp;
 
+import bounouascancela.client.InnovClient;
+import bounouascancela.client.UnrecognizedCommandException;
 import sharedobjects.*;
 
 import java.io.IOException;

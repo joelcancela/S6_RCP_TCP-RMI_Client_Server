@@ -1,6 +1,6 @@
-package bounouascancela.server.serverrmi;
+package bounouascancela.server.rmi.rmiobjects;
 
-import bounouascancela.rmiobjects.Student;
+import bounouascancela.client.rmi.rmiobjects.Student;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

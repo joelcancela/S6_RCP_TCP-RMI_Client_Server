@@ -1,8 +1,9 @@
-package bounouascancela.client.clientrmi;
+package bounouascancela.client.rmi;
 
+import bounouascancela.client.InnovClient;
 import bounouascancela.client.UnrecognizedCommandException;
-import bounouascancela.rmiobjects.*;
-import bounouascancela.server.serverrmi.InnovServerRMINassim;
+import bounouascancela.client.rmi.rmiobjects.Idea;
+import bounouascancela.server.rmi.InnovServerRMI;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -19,21 +20,29 @@ import java.util.Scanner;
  *
  * @author Nassim Bounouas
  */
-public class InnovClientImplRMINassim {
+public class InnovClientImplRMI extends InnovClient {
 
-	private static InnovServerRMINassim stub = null;
+	private static InnovServerRMI stub = null;
 	private Scanner scanner;
 	private String input;
 	private List<Idea> ideas;
 	private Registry registry;
 
+	public InnovClientImplRMI() {
+		super("localhost", 1099);
+	}
+
+	public InnovClientImplRMI(String ip) {
+		super(ip, 1099);
+	}
+
 	protected void connect() {
-		String url = "PNSInnov";
+		String url = "rmi://"+ip+"/PNSInnov";
 
 		try {
 			// Fetch remote service
-			this.registry = LocateRegistry.getRegistry(1099);
-			stub = (InnovServerRMINassim) registry.lookup(url);
+			this.registry = LocateRegistry.getRegistry(port);
+			stub = (InnovServerRMI) registry.lookup(url);
 			System.out.println("[INFO] Connected @ " + url);
 			System.out.printf("###>");
 		} catch (Exception e) {
@@ -75,23 +84,23 @@ public class InnovClientImplRMINassim {
 
 			case "add" :
 				String[] techs = {"C", "C++", "SQL"};
-				System.out.println(InnovClientImplRMINassim.stub.addIdea("Joe", "joe@dalton.com", "Project Name", "Project Description", techs ));
+				System.out.println(InnovClientImplRMI.stub.addIdea("Joe", "joe@dalton.com", "Project Name", "Project Description", techs ));
 				break;
 
 			case "help":
-				System.out.println(InnovClientImplRMINassim.stub.help());
+				System.out.println(InnovClientImplRMI.stub.help());
 				break;
 
 			case "list":
-				System.out.println(InnovClientImplRMINassim.stub.list());
+				System.out.println(InnovClientImplRMI.stub.list());
 				break;
 
 			case "quit":
-				System.out.println(InnovClientImplRMINassim.stub.quit());
+				System.out.println(InnovClientImplRMI.stub.quit());
 				break;
 
 			case "get":
-				String ref = InnovClientImplRMINassim.stub.getIdea(Integer.parseInt(tokens[1]));
+				String ref = InnovClientImplRMI.stub.getIdea(Integer.parseInt(tokens[1]));
 				try {
 					Idea idea = (Idea) this.registry.lookup(ref);
 					System.out.println(idea.getName());
@@ -101,7 +110,7 @@ public class InnovClientImplRMINassim {
 				break;
 
 			case "set":
-				InnovClientImplRMINassim.stub.setIdeaName(Integer.parseInt(tokens[1]), "DALTON PROJECT");
+				InnovClientImplRMI.stub.setIdeaName(Integer.parseInt(tokens[1]), "DALTON PROJECT");
 				break;
 
 			default:
@@ -110,7 +119,7 @@ public class InnovClientImplRMINassim {
 	}
 
 	public static void main(String[] args) {
-		InnovClientImplRMINassim innovClientImplRMI = new InnovClientImplRMINassim();
+		InnovClientImplRMI innovClientImplRMI = new InnovClientImplRMI();
 		innovClientImplRMI.start();
 	}
 	/*

@@ -1,5 +1,6 @@
-package bounouascancela.server;
+package bounouascancela.server.tcp;
 
+import bounouascancela.server.tcp.InnovServerImplTCP;
 import sharedobjects.*;
 
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class InnovServerThreadImplTCP implements Runnable {
                 }else if (received instanceof CommandList) {
                     serverResponse.addIdeas(this.innovServerImplTCP.getIdeas());
                 }else if (received instanceof CommandHelp) {
-                    serverResponse.writeResponse("This server is accepting those commands objects : CommandAdd, CommandList, CommandHelp, CommandQuit");
+                    serverResponse.writeResponse("This server is accepting those commands objects : (add) CommandAdd, (list) CommandList, (help) CommandHelp, (quit)CommandQuit");
                 }else if (received instanceof CommandQuit) {
                     serverResponse.writeResponse("See you later on our server ;)");
                     objectOutputStream.writeObject(serverResponse);

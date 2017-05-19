@@ -21,6 +21,4 @@ public abstract class InnovClient {
     protected abstract String getInput();
     protected abstract void send();
     public abstract void start();
-    protected abstract Command parseInput();
-    protected abstract Idea inputProject();
 }
