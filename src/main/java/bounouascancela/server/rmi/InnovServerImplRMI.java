@@ -4,7 +4,11 @@ package bounouascancela.server.rmi;
 import bounouascancela.server.rmi.model.Database;
 import bounouascancela.server.rmi.rmiobjects.IdeaImpl;
 import bounouascancela.server.rmi.rmiobjects.StudentImpl;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
@@ -26,6 +30,16 @@ public class InnovServerImplRMI extends UnicastRemoteObject implements InnovServ
 
     @Override
     public String help() {
+        /*
+        Method[] methods = InnovServerRMI.class.getDeclaredMethods();
+        for (int i = 0; i < methods.length; i++) {
+                System.out.println(methods[i].getName() + " " );
+                Parameter[] parameters = methods[i].getParameters();
+                for (int j = 0; j < parameters.length; j++) {
+                    System.out.print(parameters[j].getType());
+                }
+                System.out.println();
+        }*/
         return "This server is accepting those commands: add, list, help, getName [n], setName [n][name], quit";
     }
 

@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
  */
 public interface InnovServerRMI extends Remote {
 
+
     String help() throws RemoteException;
     String addIdea(String nameCreator, String mailCreator, String ideaName, String ideaDesc, String[] techs) throws RemoteException;
     String list() throws RemoteException;
