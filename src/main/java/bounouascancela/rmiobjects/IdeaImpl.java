@@ -1,6 +1,8 @@
-package sharedobjects;
+package bounouascancela.rmiobjects;
 
-import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Represent a project idea
@@ -8,9 +10,9 @@ import java.io.Serializable;
  * @author Bounouas Nassim
  * @author Joël CANCELA VAZ
  */
-public class Idea implements Serializable {
+public class IdeaImpl extends UnicastRemoteObject implements Idea {
     private String name;
-    private Student creator;
+    private StudentImpl creator;
     private String desc;
     private String[] techs;
 
@@ -21,7 +23,8 @@ public class Idea implements Serializable {
      * @param desc Project's description
      * @param techs Technologies used
      */
-    public Idea(String name, Student creator, String desc, String[] techs) {
+    public IdeaImpl(String name, StudentImpl creator, String desc, String[] techs) throws RemoteException {
+        super();
         this.name = name;
         this.creator = creator;
         this.desc = desc;
@@ -32,15 +35,22 @@ public class Idea implements Serializable {
      * Get the idea/project Name
      * @return The project's name
      */
-    public String getName() {
+    @Override
+    public String getName() throws RemoteException {
         return name;
+    }
+
+    @Override
+    public void setName(String name) throws RemoteException {
+        this.name = name;
     }
 
     /**
      * Get the student leading the project
      * @return The student
      */
-    public Student getCreator() {
+    @Override
+    public StudentImpl getCreator() throws RemoteException {
         return creator;
     }
 
@@ -48,7 +58,8 @@ public class Idea implements Serializable {
      * Get the project's description
      * @return The description
      */
-    public String getDesc() {
+    @Override
+    public String getDesc() throws RemoteException {
         return desc;
     }
 
@@ -56,7 +67,8 @@ public class Idea implements Serializable {
      * Get the technologies involved in the project
      * @return The technologies
      */
-    public String[] getTechs() {
+    @Override
+    public String[] getTechs() throws RemoteException {
         return techs;
     }
 }

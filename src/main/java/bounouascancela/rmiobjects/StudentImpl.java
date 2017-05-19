@@ -1,13 +1,14 @@
-package sharedobjects;
+package bounouascancela.rmiobjects;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Represent a StudentImpl
  * @author Bounouas Nassim
  * @author Joël CANCELA VAZ
  */
-public class Student implements Serializable{
+public class StudentImpl extends UnicastRemoteObject implements Student{
     private String name;
     private String mail;
 
@@ -16,7 +17,7 @@ public class Student implements Serializable{
      * @param name StudentImpl's name
      * @param mail StudentImpl's mail adress
      */
-    public Student(String name, String mail) {
+    public StudentImpl(String name, String mail) throws RemoteException{
         this.name = name;
         this.mail = mail;
     }
@@ -25,7 +26,8 @@ public class Student implements Serializable{
      * Get StudentImpl's name
      * @return The student's name
      */
-    public String getName() {
+    @Override
+    public String getName() throws RemoteException {
         return name;
     }
 
@@ -33,7 +35,8 @@ public class Student implements Serializable{
      * Get StudentImpl's mail
      * @return The student's mail
      */
-    public String getMail() {
+    @Override
+    public String getMail() throws RemoteException {
         return mail;
     }
 }
