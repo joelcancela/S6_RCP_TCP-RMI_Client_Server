@@ -1,4 +1,6 @@
-package bounouascancela.rmiobjects;
+package bounouascancela.server.serverrmi;
+
+import bounouascancela.rmiobjects.Student;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -8,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
  * @author Bounouas Nassim
  * @author Joël CANCELA VAZ
  */
-public class StudentImpl extends UnicastRemoteObject implements Student{
+public class StudentImpl extends UnicastRemoteObject implements Student {
     private String name;
     private String mail;
 

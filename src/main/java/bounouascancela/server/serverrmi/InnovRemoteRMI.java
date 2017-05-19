@@ -1,9 +1,5 @@
-package bounouascancela.server;
+package bounouascancela.server.serverrmi;
 
-
-import bounouascancela.rmiobjects.Idea;
-import bounouascancela.rmiobjects.IdeaImpl;
-import bounouascancela.rmiobjects.StudentImpl;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -61,6 +57,7 @@ public class InnovRemoteRMI extends UnicastRemoteObject implements InnovServerRM
     @Override
     public void setIdeaName(int index, String name) throws RemoteException {
         this.database.getItem(index).setName(name);
+        System.out.println("Changed project name index : " + index);
     }
 
     @Override

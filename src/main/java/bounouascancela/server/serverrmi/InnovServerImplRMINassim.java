@@ -1,12 +1,7 @@
-package bounouascancela.server;
-
-import sharedobjects.Idea;
+package bounouascancela.server.serverrmi;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Nassim Bounouas on 18/05/2017.

@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Joël CANCELA VAZ
  */
-public class InnovServerImplRMI extends UnicastRemoteObject implements InnovServerRMI{
+public class InnovServerImplRMI extends UnicastRemoteObject implements InnovServerRMI {
 
 	private List<Idea> ideas = new ArrayList<>();
 

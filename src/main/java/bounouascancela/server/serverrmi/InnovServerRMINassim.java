@@ -1,4 +1,4 @@
-package bounouascancela.server;
+package bounouascancela.server.serverrmi;
 
 import bounouascancela.rmiobjects.Idea;
 

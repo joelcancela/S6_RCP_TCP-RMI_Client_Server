@@ -1,5 +1,7 @@
 package bounouascancela.rmiobjects;
 
+import bounouascancela.server.serverrmi.StudentImpl;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

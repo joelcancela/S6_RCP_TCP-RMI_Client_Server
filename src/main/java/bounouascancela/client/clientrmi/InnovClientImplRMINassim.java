@@ -1,7 +1,8 @@
-package bounouascancela.client;
+package bounouascancela.client.clientrmi;
 
+import bounouascancela.client.UnrecognizedCommandException;
 import bounouascancela.rmiobjects.*;
-import bounouascancela.server.InnovServerRMINassim;
+import bounouascancela.server.serverrmi.InnovServerRMINassim;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
