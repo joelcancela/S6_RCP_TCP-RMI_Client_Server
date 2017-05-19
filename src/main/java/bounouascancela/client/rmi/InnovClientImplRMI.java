@@ -83,8 +83,17 @@ public class InnovClientImplRMI extends InnovClient {
 		switch (tokens[0]) {
 
 			case "add" :
-				String[] techs = {"C", "C++", "SQL"};
-				System.out.println(InnovClientImplRMI.stub.addIdea("Joe", "joe@dalton.com", "Project Name", "Project Description", techs ));
+				System.out.printf("\tProject Name : ");
+				String name = scanner.nextLine();
+				System.out.printf("\tCreator Name : ");
+				String creator = scanner.nextLine();
+				System.out.printf("\tCreator Mail : ");
+				String mail = scanner.nextLine();
+				System.out.printf("\tProject Description : ");
+				String description = scanner.nextLine();
+				System.out.printf("\tTech (coma separated) : ");
+				String[] techs = scanner.nextLine().split(",");
+				System.out.println(InnovClientImplRMI.stub.addIdea(name,creator,mail,description,techs ));
 				break;
 
 			case "help":
@@ -122,19 +131,4 @@ public class InnovClientImplRMI extends InnovClient {
 		InnovClientImplRMI innovClientImplRMI = new InnovClientImplRMI();
 		innovClientImplRMI.start();
 	}
-	/*
-	protected Idea inputProject() {
-		System.out.printf("\tProject Name : ");
-		String name = scanner.nextLine();
-		System.out.printf("\tCreator Name : ");
-		String creator = scanner.nextLine();
-		System.out.printf("\tCreator Mail : ");
-		String mail = scanner.nextLine();
-		System.out.printf("\tProject Description : ");
-		String description = scanner.nextLine();
-		System.out.printf("\tTech (coma separated) : ");
-		String[] techs = scanner.nextLine().split(",");
-
-		return new Idea(name,new StudentImpl(creator, mail), description, techs);
-	}*/
 }
