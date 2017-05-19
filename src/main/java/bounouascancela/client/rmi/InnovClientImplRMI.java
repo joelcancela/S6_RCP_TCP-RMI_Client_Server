@@ -37,11 +37,11 @@ public class InnovClientImplRMI extends InnovClient {
 	}
 
 	protected void connect() {
-		String url = "rmi://"+ip+"/PNSInnov";
+		String url = "PNSInnov";
 
 		try {
 			// Fetch remote service
-			this.registry = LocateRegistry.getRegistry(port);
+			this.registry = LocateRegistry.getRegistry(ip,port);
 			stub = (InnovServerRMI) registry.lookup(url);
 			System.out.println("[INFO] Connected @ " + url);
 			System.out.printf("###>");
