@@ -1,0 +1,29 @@
+Dans notre ancienne version, le serveur et lien se partageaient une grande quantité de classe de Type Command
+qui englobait parfois de l'information par exemple dans le cadre d'un Add; les commandes List, Help, Quit correspondait à des classes vides.
+
+Dans la version RMI, le serveur et le client se partagent uniquement des Interfaces.
+
+Dans notre cas en RMI nos interfaces sont : Idea, Student, InnovServerRMI.
+
+Le nombre de parties communes entre le serveur et le client s'en trouve grandement réduit. De plus les implémentations des objets ne sont plus connues du client. Le client ne connait que les méthodes qui lui sont exposées au travers de l'interface publique.
+
+###########
+SERVER SIDE
+###########
+
+Notre serveur crée un objet Registry en y associant un port.
+Sur le registre créé, la méthode rebind(String, Remote) permet d'associer une référence String à une instance d'un Objet étendant Remote. 
+
+Cet objet étendant Remote implémente l'interface publique nommée précédemment "InnovServerRMI". Le client peut donc en récupérant la référence sur cette instance depuis le registre y appliquer les méthodes exposées dans l'interface. (C'est ici que sont implémentées les méthodes du serveur).
+
+###########
+CLIENT SIDE
+###########
+
+Notre client commence par récupérer le registre distant en faisant appel à LocateRegistry.getRegistry(ip, port);
+
+Une fois le registre récupéré la méthode lookup(String) permet de récupèrer la référence vers l'objet instancié du coté serveur implémentant les méthodes exposées via l'interface.
+
+Notre client n'envoie plus d'objet Command mais applique directement les méthodes de l'interface sur le stub récupéré.
+
+Lorsque l'on fait appel à un getter sur un objet distant (non sérialisé), le serveur génére un identifiant (String), bind la référence sur l'objet et renvoie au client le String sérialisé afin que le client puisse effectuer un lookup() et récupèrer la réfèrence.
